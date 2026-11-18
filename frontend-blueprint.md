@@ -41,10 +41,10 @@ When the user points you at this file to start a new frontend:
 
 | Header | Question | Options (first = default) | What it changes |
 | --- | --- | --- | --- |
-| `Engine` | Container engine? | **Podman** · Docker | compose folder, `justfile` `compose` line ([§12](#12-containers-podman-or-docker)) |
+| `Engine` | Container engine? | **Podman** · Docker | compose folder, `justfile` `compose` line ([§12](#12-containers-podman-or-docker-template)) |
 | `Backend` | Which backend? | **api-template (JWT + refresh cookie)** · Other API (describe it) · None (static site) | `services/api.ts`, `features/auth/`, guards, proxy ([§5](#5-connecting-to-the-backend)) |
 | `Layout` | App shell? | **Sidebar (collapsible)** · Top bar · None (single page) | `layouts/dashboard/`, shadcn components ([§7](#7-ui-shadcn)) |
-| `Obfuscate` | Obfuscate the production JavaScript? | **No** · Yes | `OBFUSCATE` default in `.env.example` ([§10](#10-obfuscation-optional)) |
+| `Obfuscate` | Obfuscate the production JavaScript? | **No** · Yes | `OBFUSCATE` default in `.env.example` ([§10](#10-obfuscation-optional-template)) |
 
 ### Round 2
 
