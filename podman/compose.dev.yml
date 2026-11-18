@@ -1,0 +1,56 @@
+# Dev only. Run from repo root:
+#   podman compose -f podman/compose.dev.yml up --build
+# Works with no .env present — defaults below kick in via ${VAR:-default}.
+# The API runs from its own repo (its own compose project) on the host port.
+
+# Explicit project name: without it the name is derived from this file's parent
+# dir ("podman"), which collides with sibling repos that also use podman/.
+name: ${COMPOSE_PROJECT_NAME:-web-template-dev}
+
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: dev
+    restart: unless-stopped
+    env_file:
+      - path: ../.env
+        required: false
+    environment:
+      VITE_HOST: 0.0.0.0
+      PORT: "5173"
+      # The API published on the host, reached from inside the container.
+      API_UPSTREAM: ${API_UPSTREAM:-http://host.containers.internal:3000}
+      # fs events don't reliably cross the podman VM bind mount
+      VITE_USE_POLLING: "true"
+    ports:
+      - "${PORT:-5173}:5173"
+    volumes:
+      # source only — keeps baked node_modules intact
+      - ../src:/app/src:z
+      - ../public:/app/public:z
+      - ../scripts:/app/scripts:z
+      - ../index.html:/app/index.html:z,ro
+      - ../vite.config.ts:/app/vite.config.ts:z,ro
+      - ../tsconfig.json:/app/tsconfig.json:z,ro
+      - ../tsconfig.app.json:/app/tsconfig.app.json:z,ro
+      - ../tsconfig.node.json:/app/tsconfig.node.json:z,ro
+      - ../biome.json:/app/biome.json:z,ro
+      # `just dist` writes the static build back to the host
+      - ../dist:/app/dist:z
+
+  # Production image (caddy + static build). `just preview`.
+  preview:
+    profiles: ["preview"]
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      target: runtime
+      args:
+        VITE_API_URL: ${VITE_API_URL:-}
+        OBFUSCATE: ${OBFUSCATE:-false}
+    environment:
+      API_UPSTREAM: ${API_UPSTREAM:-http://host.containers.internal:3000}
+    ports:
+      - "${PORT:-5173}:80"

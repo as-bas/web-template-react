@@ -1,0 +1,28 @@
+# deps
+node_modules/
+
+# build
+dist/
+dist-ssr/
+*.local
+
+# env
+.env
+.env.production
+.env.*.local
+
+# logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.sw?
+
+plans/
