@@ -2,8 +2,8 @@
 
 How to set up a new web frontend with our house conventions: a React SPA that builds to **static HTML + assets**, shadcn/ui components, clear project structure, optional obfuscation, connected to an `api-template` backend. Self-contained: it depends on no other project.
 
-- **This file lives at the root of `web-template`** (`/Volumes/Dock/Development/teams/aluesa/poc/web-template`). The repo around it is the default combination, ready to copy. This file covers the variations and the known gaps.
-- Backend counterpart: `api-template` (`/Volumes/Dock/Development/teams/aluesa/poc/api-template`, with `backend-blueprint.md`). Its `docs/auth.md` is the auth contract this frontend implements.
+- **This file lives at the root of `web-template`**. The repo around it is the default combination, ready to copy. This file covers the variations and the known gaps.
+- Backend counterpart: `api-template` (sibling repo `../api-template`, with `backend-blueprint.md`). Its `docs/auth.md` is the auth contract this frontend implements.
 - **Validated 2026-11-09** with: Node 24.21, pnpm 10.23, React 19.3, Vite 8.3 (Rolldown 1.2), TypeScript 7.0, React Router 8.5, Redux Toolkit 2.14, i18next 27, Tailwind 4.3, shadcn CLI 4.23 (`radix-nova`), Vitest 5.1 + jsdom 31, javascript-obfuscator 5.10, Caddy 2.10, Podman 6.1. See [§16](#16-validation-log).
 
 Status markers:
